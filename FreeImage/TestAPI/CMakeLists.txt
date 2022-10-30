@@ -13,21 +13,26 @@ add_dependencies(${PROJECT_NAME} FreeImage)
 set(${PROJECT_NAME}_TESTDATA_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 # Destination Path are different on Windows and Linux
 if(WIN32)
-	set(DIST "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
+    #	set(DIST "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
+    set(DIST "${CMAKE_CURRENT_BINARY_DIR}/")
 else()
-	set(DIST "${CMAKE_CURRENT_BINARY_DIR}/")
+    set(DIST "${CMAKE_CURRENT_BINARY_DIR}/")
 endif()
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-				   COMMAND ${CMAKE_COMMAND} -E copy
-				   		   "${${PROJECT_NAME}_TESTDATA_DIR}/exif.jpg"
-						   "${${PROJECT_NAME}_TESTDATA_DIR}/exif.jxr"
-						   "${${PROJECT_NAME}_TESTDATA_DIR}/sample.png"
-   						   "${DIST}")
+    COMMAND ${CMAKE_COMMAND} -E copy
+    "${${PROJECT_NAME}_TESTDATA_DIR}/exif.jpg"
+    "${${PROJECT_NAME}_TESTDATA_DIR}/exif.jxr"
+    "${${PROJECT_NAME}_TESTDATA_DIR}/sample.png"
+    "${DIST}")
 
 # Copying dependent DLLs to executable directory after building the target on Windows
 if(MSVC)
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-					   COMMAND ${CMAKE_COMMAND} -E copy
-							  "${FreeImage_BINARY_DIR}/$<CONFIG>/FreeImage$<$<CONFIG:Debug>:d>.dll"
-							  "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
+    #	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    #	   COMMAND ${CMAKE_COMMAND} -E copy
+    #          "${FreeImage_BINARY_DIR}/$<CONFIG>/FreeImage$<$<CONFIG:Debug>:d>.dll"
+    #	  "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "${FreeImage_BINARY_DIR}/FreeImage$<$<CONFIG:Debug>:d>.dll"
+        "${CMAKE_CURRENT_BINARY_DIR}/")
 endif(MSVC)
