@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.6)
+﻿cmake_minimum_required(VERSION 3.16.6)
 project(FreeImagePlusTest VERSION 3.18.0)
 
 file(GLOB SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
@@ -25,16 +25,16 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     "${${PROJECT_NAME}_TESTDATA_DIR}/test.tif"
     "${DIST}")
 
-# Copying dependent DLLs to executable directory after building the target on Windows
-if(MSVC)
-    #	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    #	   COMMAND ${CMAKE_COMMAND} -E copy
-    #	   "${FreeImage_BINARY_DIR}/$<CONFIG>/FreeImage$<$<CONFIG:Debug>:d>.dll"
-    #	   "${FreeImagePlus_BINARY_DIR}/$<CONFIG>/FreeImagePlus$<$<CONFIG:Debug>:d>.dll"
-    #	   "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        "${FreeImage_BINARY_DIR}/FreeImage$<$<CONFIG:Debug>:d>.dll"
-        "${FreeImagePlus_BINARY_DIR}/FreeImagePlus$<$<CONFIG:Debug>:d>.dll"
-        "${CMAKE_CURRENT_BINARY_DIR}/")
-endif(MSVC)
+# # Copying dependent DLLs to executable directory after building the target on Windows
+# if(MSVC)
+#     #	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#     #	   COMMAND ${CMAKE_COMMAND} -E copy
+#     #	   "${FreeImage_BINARY_DIR}/$<CONFIG>/FreeImage$<$<CONFIG:Debug>:d>.dll"
+#     #	   "${FreeImagePlus_BINARY_DIR}/$<CONFIG>/FreeImagePlus$<$<CONFIG:Debug>:d>.dll"
+#     #	   "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/")
+#     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#         COMMAND ${CMAKE_COMMAND} -E copy
+#         "${FreeImage_BINARY_DIR}/FreeImage$<$<CONFIG:Debug>:d>.dll"
+#         "${FreeImagePlus_BINARY_DIR}/FreeImagePlus$<$<CONFIG:Debug>:d>.dll"
+#         "${CMAKE_CURRENT_BINARY_DIR}/")
+# endif(MSVC)
